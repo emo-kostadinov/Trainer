@@ -1,0 +1,75 @@
+#include <LiquidCrystal.h>
+const int rs = 12;
+const int en = 11;
+const int d4 = 5;
+const int d5 = 4; 
+const int d6 = 3; 
+const int d7 = 2;
+
+
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+int i =0;
+int max=3;
+char *arr[3]=
+{
+"Push-ups 10x4",
+  "Pull-ups 10x4",
+  "leg-pess 8x4"
+};
+
+
+void setup() {
+  lcd.begin(16, 2);
+  lcd.print("First");
+  lcd.setCursor(0, 1);
+  lcd.print("exercise is:");
+  delay(2000);
+  lcd.clear();
+}
+
+void train(int time,char *message)
+{
+  lcd.setCursor(1, 0);
+  lcd.print(message);
+  for(int i =time; i ;i--)
+  {
+  lcd.setCursor(1, 0);
+  lcd.print(message);
+  lcd.setCursor(7, 1);
+  lcd.print(i);
+  delay(1000);
+  lcd.clear();
+  }
+  lcd.clear();
+  lcd.setCursor(1, 0);
+  lcd.print("Done!");
+  delay(1000);
+  lcd.clear();
+  tone(7,360,100);
+  delay(100);
+  tone(7,300,100);
+  delay(100);
+  tone(7,240,200);
+  delay(100);
+}
+
+void loop() 
+{
+  if(i==max)
+  {
+    delay(1000);
+  lcd.clear();
+  lcd.setCursor(4, 0);
+  lcd.print("congrats!");
+  exit(0);
+  }
+  
+  lcd.print(arr[i]);
+  delay(4000);
+  lcd.clear();
+  train(12,arr[i++]);
+  lcd.setCursor(0, 0);
+  lcd.print("Rest, next:");
+  lcd.setCursor(0, 1);
+}
